@@ -1,10 +1,13 @@
 # pass3d
 
 3D object shape recognition CLI tools for Linux, using [p3d](https://github.com/3Dpass/p3d) and providing HASH IDs calculation and its verification.
+
 - Pass3d has [Grid2d algorithm](https://michael25651209.medium.com/how-to-calculate-a-hash-of-3d-object-1e0e3669322d) implemented now, however it always encourages to contribute and create new ones to add. Join 3DPass community on [Discord](https://discord.gg/u24WkXcwug) to discuss and make your suggestions;
 - The input is a 3D scan/model of the object (.stl or .obj formats required).
 For example, you can download these two ones: [pir1.obj](https://3dpass.org/assets/3dobjects/pir1_obj.zip) and [pir2.obj](https://3dpass.org/assets/3dobjects/pir2_obj.zip);
 - The output is a Top10 hashes list inherent to the object shape.
+
+Learn the [difference between HASH ID and NFT](https://github.com/3Dpass/3DP/wiki/HASH-ID-vs-NFT-difference)
 
 USAGE:
 
