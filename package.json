@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "miner": "node miner.js"
+    "miner": "node generate_rock.js && target/release/pass3d -a grid2d -g 8 -s 96 -i rock.obj"
   },
   "devDependencies": {
     "prettier": "2.6.2"

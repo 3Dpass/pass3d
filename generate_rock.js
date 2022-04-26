@@ -31,6 +31,7 @@ function save(text, filename) {
     });
 }
 
+const filename = "rock.obj";
 const rock = create_rock();
 const obj_file = create_obj_file(rock);
-save(obj_file, "rock.obj");
+save(obj_file, filename);
