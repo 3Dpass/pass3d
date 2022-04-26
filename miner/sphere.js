@@ -10,8 +10,8 @@ const createSphere = function (opt) {
     let stacks = opt.stacks || 32;
     let slices = opt.slices || 32;
 
-    let positions = [];
-    let cells = [];
+    let vertices = [];
+    let indexes = [];
     let normals = [];
 
     // keeps track of the index of the next vertex that we create.
@@ -30,7 +30,7 @@ const createSphere = function (opt) {
         let u = i / stacks;
         let phi = u * Math.PI;
 
-        let stackBaseIndex = cells.length / 2;
+        let stackBaseIndex = indexes.length / 2;
 
         // loop through the slices.
         for (let j = 0; j < slices; ++j) {
@@ -43,7 +43,7 @@ const createSphere = function (opt) {
             let y = Math.cos(phi);
             let z = Math.sin(theta) * Math.sin(phi);
 
-            positions.push([R * x, R * y, R * z]);
+            vertices.push([R * x, R * y, R * z]);
             normals.push([x, y, z]);
 
             if (i + 1 != stacks) {
@@ -66,8 +66,8 @@ const createSphere = function (opt) {
                 }
 
                 // add quad face
-                cells.push([i1, i2, i3]);
-                cells.push([i4, i3, i2]);
+                indexes.push([i1, i2, i3]);
+                indexes.push([i4, i3, i2]);
             }
 
             index++;
@@ -79,26 +79,26 @@ const createSphere = function (opt) {
      */
 
     let topIndex = index++;
-    positions.push([0.0, radius, 0.0]);
+    vertices.push([0.0, radius, 0.0]);
     normals.push([0, 1, 0]);
 
     let bottomIndex = index++;
-    positions.push([0, -radius, 0]);
+    vertices.push([0, -radius, 0]);
     normals.push([0, -1, 0]);
 
     for (let i = 0; i < slices; ++i) {
         let i1 = topIndex;
         let i2 = i + 0;
         let i3 = (i + 1) % slices;
-        cells.push([i3, i2, i1]);
+        indexes.push([i3, i2, i1]);
 
         i1 = bottomIndex;
         i2 = bottomIndex - 1 - slices + (i + 0);
         i3 = bottomIndex - 1 - slices + ((i + 1) % slices);
-        cells.push([i1, i2, i3]);
+        indexes.push([i1, i2, i3]);
     }
 
-    return { positions: positions, cells: cells, normals: normals };
+    return { vertices: vertices, cells: indexes, normals: normals };
 };
 
 export default createSphere;

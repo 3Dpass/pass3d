@@ -4,6 +4,7 @@
 
 import vec3 from "gl-vec3";
 import seedRandom from "seed-random";
+import * as THREE from "three";
 
 import Perlin from "./Perlin.js";
 import createSphere from "./sphere.js";
@@ -28,16 +29,16 @@ const Rock = function (rockObj) {
 
     const rand = seedRandom(rock.seed);
 
-    const sphere = createSphere({ stacks: 20, slices: 20 });
+    const sphere = createSphere({ stacks: 50, slices: 50 });
 
-    const positions = sphere.positions;
-    const cells = sphere.cells;
+    const positions = sphere.vertices;
+    const indexes = sphere.cells;
     const normals = sphere.normals;
 
     if (!adjacentVertices) {
         // OPTIMIZATION: we are always using the same sphere as base for the rock,
         // so we only need to compute the adjacent positions once.
-        const rockObj = scrape.getNeighbours(positions, cells);
+        const rockObj = scrape.getNeighbours(positions, indexes);
         adjacentVertices = rockObj.adjacentVertices;
     }
 
@@ -79,12 +80,11 @@ const Rock = function (rockObj) {
 
     // now we scrape at all the selected positions.
     for (let i = 0; i < scrapeIndices.length; ++i) {
-        scrape.scrape(scrapeIndices[i], positions, cells, normals, adjacentVertices, rock.scrapeStrength, rock.scrapeRadius);
+        scrape.scrape(scrapeIndices[i], positions, indexes, normals, adjacentVertices, rock.scrapeStrength, rock.scrapeRadius);
     }
 
-    /*
-    Finally, we apply a Perlin noise to slighty distort the mesh,
-     and then we scale the mesh.
+    /**
+     * Finally, we apply a Perlin noise to slightly distort the mesh and then scale the mesh.
      */
     for (let i = 0; i < positions.length; ++i) {
         let p = positions[i];
@@ -101,8 +101,13 @@ const Rock = function (rockObj) {
         positions[i][2] *= rock.scale[2];
     }
 
-    rock.positions = positions;
-    rock.cells = cells;
+    const geometry = new THREE.BufferGeometry();
+    geometry.setIndex(indexes.flat());
+    const vertices = positions.flat();
+    geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.computeVertexNormals();
+
+    rock.geometry = geometry;
 
     return rock;
 };
