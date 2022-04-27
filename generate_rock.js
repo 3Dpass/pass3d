@@ -7,8 +7,8 @@ import { OBJExporter } from "three/examples/jsm/exporters/OBJExporter.js";
 
 function create_rock() {
     const rock_obj = new RockObj();
-    rock_obj.seed = Math.round(randomArray(0, 1000000).oned(1)[0]);
-    rock_obj.scale = [1.0, 1.0, 1.5];
+    rock_obj.seed = Math.round(randomArray(0, 999999999999).oned(1)[0]);
+    rock_obj.scale = [1.0, 1.0, 1.8];
     return new Rock(rock_obj);
 }
 
