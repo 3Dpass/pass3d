@@ -27,7 +27,7 @@ For example, we have two different 3D scans pir1.obj and pir2.obj of the same re
 
 ## Mining:
 
-    yarn mining
+    yarn miner
 
 ## Example:
 
