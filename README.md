@@ -25,10 +25,6 @@ The object shape is considered to be recognized if there is at least one hash-va
 
 For example, we have two different 3D scans pir1.obj and pir2.obj of the same real physical object. In order to run processing and create hashes out of the first one we have to run a command like this:
 
-## Mining:
-
-    yarn miner
-
 ## Example:
 
  cargo run -- --algo grid2d --grid 8 --sect 68 --infile data/pir1.obj
