@@ -1,19 +1,20 @@
 # pass3d
 
-3D object shape recognition CLI tools for Linux, using [p3d](https://github.com/3Dpass/p3d) and providing HASH IDs calculation and its verification.
+3D object shape recognition CLI tool for Linux, which represents the implementation of [Grid2d](https://3dpass.org/grid2d.html) algorithm.
 
-- Pass3d has [Grid2d algorithm](https://michael25651209.medium.com/how-to-calculate-a-hash-of-3d-object-1e0e3669322d) implemented now, however it always encourages to contribute and create new ones to add. Join 3DPass community on [Discord](https://discord.gg/u24WkXcwug) to discuss and make your suggestions;
-- The input is a 3D scan/model of the object (.stl or .obj formats required).
-For example, you can download these two ones: [pir1.obj](https://3dpass.org/assets/3dobjects/pir1_obj.zip) and [pir2.obj](https://3dpass.org/assets/3dobjects/pir2_obj.zip);
-- The output is a Top10 hashes list inherent to the object shape.
+- The input is a 3D model in [*.obj*](https://en.wikipedia.org/wiki/Wavefront_.obj_file) format;
+- The output is the list of Top10 hashes inherent to the object shape.
 
-Learn the [difference between HASH ID and NFT](https://github.com/3Dpass/3DP/wiki/HASH-ID-vs-NFT-difference)
+## Build:
+```
+cargo build --release
+```
 
-USAGE:
-
-    pass3d --algo  --grid  --infile  --sect
-
-OPTIONS:
+## Usage:
+```
+pass3d --algo  --grid  --infile  --sect
+```
+### Options:
 
     -a, --algo         3d hash algorithm Algorithm. Supported algorithms: Grid2d
     -g, --grid         Number of cells in Grid2d algorithm
@@ -21,16 +22,16 @@ OPTIONS:
     -s, --sect         Number of sections in Grid2d algorithm
 
 
-The object shape is considered to be recognized if there is at least one hash-value match among two different processing results. We have to process two or more different 3D scans of the same object and to compare the top10 results. We should use exactly the same parameters every time. It's recommended to use the same equipment, as well.
+The object shape is considered to be recognized if there is at least one hash matched in the processing results. We should process two or more different 3D scans of the same object "one by one" and compare the top10 results. We must use exactly the same parameters every time. It's recommended that we use the same equipment, as well.
 
-For example, we have two different 3D scans pir1.obj and pir2.obj of the same real physical object. In order to run processing and create hashes out of the first one we have to run a command like this:
+For example, we have scanned a real physical object and now we are using two different 3D scans of it: [pir1.obj](https://3dpass.org/assets/3dobjects/pir1_obj.zip) and [pir2.obj](https://3dpass.org/assets/3dobjects/pir2_obj.zip). In order to get processed the first one run the command like this:
 
-## Example:
-
- cargo run -- --algo grid2d --grid 8 --sect 68 --infile data/pir1.obj
+```
+cargo run -- --algo grid2d --grid 8 --sect 68 --infile data/pir1.obj
+```
 
  The output will be like this:
-
+```
  ~/Desktop/3dpass$ ./pass3d -i pir1.obj -a grid2d -g 8 -s 68
 Select top 10 hashes
 "9bccac20a0586638cc74a2ff295c987d470794f24f008b02ce02643d0281f03f"
@@ -43,9 +44,11 @@ Select top 10 hashes
 "880cfda2b4811bf2ff1fe3ab92b38e64fc134d98c3dc8764eb8641a477b77a47"
 "15cc9ef656a14c9ffde999512d11bd81cd5eaedaa81139a61847d470ea01043b"
 "543e1c3929ea810f4e8c7cfc27f0b60df21a9374089f2278617dae327e32b034"
+```
 
 The second scan processing outcome gives us this:
 
+```
 ~/Desktop/3dpass$ ./pass3d -i pir2.obj -a grid2d -g 8 -s 68
 Select top 10 hashes
 "72592f8f6ea67c60ca7d9c7683256c3636a30be464952eb82996bff52ca4415d"
@@ -58,24 +61,27 @@ Select top 10 hashes
 "deb83d22570bfc07b8881618dc34a6624616521475bac17798b7348cf6684fd1"
 "dd227121b91adcb5beabb0be9412613ebdfde8c5660301eb17583fa644b8793d"
 "543e1c3929ea810f4e8c7cfc27f0b60df21a9374089f2278617dae327e32b034"
+```
 
 Within those two processing results, we have three of top10 hash-values matched:
 
+```
 "aa4019c8c160da9d2af69edc19589aabd925bc696966b967f92b71947f75f8f0"
 "dd227121b91adcb5beabb0be9412613ebdfde8c5660301eb17583fa644b8793d"
 "543e1c3929ea810f4e8c7cfc27f0b60df21a9374089f2278617dae327e32b034"
+```
 
 So, we have the object recognized.
 If we had no matches in the results the object wouldn't have been recognized.
 
-## Parameters adjustment
+## Recognition parameters
 These are two key parameters we need to adjust in order to create the best possible Hash ID depending on 3D scans quality.
-
+```
   -g, --grid         Number of cells in Grid2d
-
   -s, --sect         Number of cross-sections in Grid2d
+```
 
-- Number of cells parameter -g:
+### Number of cells parameter -g:
 
 Grid (-g) is the parameter which is about to help us to adjust the recognition algorithm to the particular 3D scan quality. The higher scan quality we get, the higher number of cells in the row we can set up for the processing. According to the Grid2d algorithm, by means of increasing number of cells, we are following a 3D scan cross-section contour more closely to the actual curve. That means that more precisely we can recognize the object shape. But, simultaneously, we're keeping less space for some error in the future. It's all about the balance between accuracy of the shape recognition and the ability to get the stable Hash ID.
 
@@ -91,7 +97,7 @@ Parameter -g=20 (20x20 grid) example:
 
 Notice, that we should set the numebr of cells parameter (-g) up to the lowest quality of 3D scans we expect to process in the future. If we set the (-g) value to be appropriate for HD scanners (-g=20 or higher) but the scans won’t be there, then we’ll never reach the recognition success. -g=6 is recommended for low quality. We should use exactly the same set of parameters for the same object while processing. Otherwise, we won’t succeed in recognition.
 
-- Number of cross-sections parameter -s:
+### Number of cross-sections parameter -s:
 
 The more cross-sections we set, the more hash strength we get. Each cross-section represents a unique contour which is, basically, the unique seed data the future hash would be created from. If we have captured more unique distinctions from the object shape, it would give us higher hash strength. For example, if we had set up just one cross-section (-s=1), we would leverage only one contour of the object which is really small amount of unique data. And it’s definitely not enough to describe the entire object shape. It’s like if we would try to describe the hole apple shape having just one slice of it. So, if you’re interested in recognition the entire object rather than a few slices of it, it’s recommended that you set up at least 100 cross-sections (-s=100).
 
