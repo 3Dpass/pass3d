@@ -110,7 +110,7 @@ Overall recommendations: It's recommended that we set up the number of cross-sec
 - It's recommended to set up the grid parameter (-g) value according to the lowest scan definition we expect to process in the future. Such values as -g=6 or -g=7 (6x6 and 7x7 grid) would be recommended for smartphones and tablets;
 - It's recommended that we set up the number of cross-sections at least 60 (-s=60) in terms of leveraging the entire object shape instead of just a few slices.
 
-## Licence
+## License
 
 This project is licensed under the MIT License
 
