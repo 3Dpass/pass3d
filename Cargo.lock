@@ -305,8 +305,8 @@ dependencies = [
 
 [[package]]
 name = "p3d"
-version = "0.2.0"
-source = "git+https://github.com/3Dpass/p3d?branch=test_main#378ddeb16dda5d0df810e321b14f9e75c085a6fb"
+version = "0.3.1"
+source = "git+https://github.com/3Dpass/p3d?tag=v0.6.0#4a98da181478ac9ba5e27e96a31a8c695d200c61"
 dependencies = [
  "base16ct",
  "cgmath",
@@ -320,7 +320,7 @@ dependencies = [
 
 [[package]]
 name = "pass3d"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "p3d",
  "structopt",

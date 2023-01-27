@@ -30,12 +30,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Cli::from_args();
 
     let mut res_hashes = Ok(vec![]);
-    if args.algo == "grid2d" {
-        let mut file = File::open(&args.infile).expect("No file found");
-        let mut buffer = Vec::new();
-        file.read_to_end(&mut buffer).expect("Can't read inout file");
+    let mut file = File::open(&args.infile).expect("No file found");
+    let mut buffer = Vec::new();
+    file.read_to_end(&mut buffer).expect("Can't read inout file");
 
-        res_hashes = p3d_process(buffer.as_slice(), AlgoType::Grid2d, args.grid, args.sect);
+    if args.algo == "grid2d" {
+        res_hashes = p3d_process(buffer.as_slice(), AlgoType::Grid2d, args.grid, args.sect, Some([20, 30, 40, 20]));
+    }
+    else if args.algo == "grid2d_v2" {
+        res_hashes = p3d_process(buffer.as_slice(), AlgoType::Grid2dV2, args.grid, args.sect, Some([20, 30, 40, 20]));
     }
 
     let hashes = res_hashes.unwrap();
