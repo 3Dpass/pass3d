@@ -35,10 +35,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     file.read_to_end(&mut buffer).expect("Can't read inout file");
 
     if args.algo == "grid2d" {
-        res_hashes = p3d_process(buffer.as_slice(), AlgoType::Grid2d, args.grid, args.sect, Some([20, 30, 40, 20]));
+        res_hashes = p3d_process(buffer.as_slice(), AlgoType::Grid2d, args.grid, args.sect, None);
     }
     else if args.algo == "grid2d_v2" {
-        res_hashes = p3d_process(buffer.as_slice(), AlgoType::Grid2dV2, args.grid, args.sect, Some([20, 30, 40, 20]));
+        res_hashes = p3d_process(buffer.as_slice(), AlgoType::Grid2dV2, args.grid, args.sect, None);
+    }
+    else if args.algo == "grid2d_v3" {
+        res_hashes = p3d_process(buffer.as_slice(), AlgoType::Grid2dV3, args.grid, args.sect, None);
     }
 
     let hashes = res_hashes.unwrap();

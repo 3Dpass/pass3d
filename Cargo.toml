@@ -1,6 +1,6 @@
 [package]
 name = "pass3d"
-version = "0.2.2"
+version = "0.2.3"
 authors = ["3Dpass"]
 edition = "2018"
 
@@ -9,4 +9,4 @@ edition = "2018"
 [dependencies]
 structopt = "0.3.13"
 
-p3d = { version="0.3.2", git = "https://github.com/3Dpass/p3d", tag = "v0.6.2" }
+p3d = { version="0.3.3", git = "https://github.com/3Dpass/p3d", tag = "v0.6.3" }
