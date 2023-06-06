@@ -89,11 +89,11 @@ Low definition scanners, especially smartphone apps, gives us a lot of error bet
 
 Parameter -g=6 (6x6 grid) example:
 
-![logo](https://3dpass.org/assets/img/6x6grid.png)
+<img width="348" alt="6x6grid" src="https://github.com/3Dpass/pass3d/assets/107915078/3ec3e958-2adc-4eca-b2f7-267f555dfb07">
 
 Parameter -g=20 (20x20 grid) example:
 
-![logo](https://3dpass.org/assets/img/20x20grid.png)
+<img width="457" alt="20x20grid" src="https://github.com/3Dpass/pass3d/assets/107915078/7a2214a7-1759-4486-b7ce-9933eac54dc4">
 
 Notice, that we should set the numebr of cells parameter (-g) up to the lowest quality of 3D scans we expect to process in the future. If we set the (-g) value to be appropriate for HD scanners (-g=20 or higher) but the scans won’t be there, then we’ll never reach the recognition success. -g=6 is recommended for low quality. We should use exactly the same set of parameters for the same object while processing. Otherwise, we won’t succeed in recognition.
 
@@ -103,7 +103,7 @@ The more cross-sections we set, the more hash strength we get. Each cross-sectio
 
 Parameter -s=3 example:
 
-![crossection3](https://3dpass.org/assets/img/-s_3.png)
+![-s_3](https://github.com/3Dpass/pass3d/assets/107915078/13fdf000-8c65-4a97-9919-8c8c48c45648)
 
 Overall recommendations: It's recommended that we set up the number of cross-sections at least 100 (-s=100) in terms of leveraging the entire object shape instead of just a few slices.
 - We should use exactly the same set of parameters for the same object while processing. Otherwise, we will not succeed in recognition;
@@ -114,4 +114,4 @@ Overall recommendations: It's recommended that we set up the number of cross-sec
 
 This project is licensed under the MIT License
 
-Copyright (C) 2022 3DPass https://3dpass.org/
+Copyright (C) 2023 3DPass https://3dpass.org/
