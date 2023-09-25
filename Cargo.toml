@@ -9,4 +9,4 @@ edition = "2018"
 [dependencies]
 structopt = "0.3.13"
 
-p3d = { version="0.3.3", git = "https://github.com/3Dpass/p3d", tag = "v0.6.3" }
+p3d = { version="0.3.4", git="https://github.com/3Dpass/p3d", rev="914cf44" }

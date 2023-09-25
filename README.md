@@ -16,10 +16,11 @@ pass3d --algo  --grid  --infile  --sect
 ```
 ### Options:
 
-    -a, --algo         3d hash algorithm Algorithm. Supported algorithms: Grid2d
+    -a, --algo         3d hash algorithm Algorithm. Supported algorithms: grid2d, grid2d_v2, grid2d_v3, grid2d_v3a
     -g, --grid         Number of cells in Grid2d algorithm
     -i, --infile       The path to the file to read
     -s, --sect         Number of sections in Grid2d algorithm
+    -d, --depth        Number of hashes to calculate. Optional. Default: 10.
 
 
 The object shape is considered to be recognized if there is at least one hash matched in the processing results. We should process two or more different 3D scans of the same object "one by one" and compare the top10 results. We must use exactly the same parameters every time. It's recommended that we use the same equipment, as well.

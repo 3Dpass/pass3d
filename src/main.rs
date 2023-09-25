@@ -3,6 +3,7 @@ use std::io::Read;
 use structopt::StructOpt;
 
 use p3d::p3d_process;
+use p3d::p3d_process_n;
 use p3d::AlgoType;
 
 /// Search for a pattern in a file and display the lines that contain it.
@@ -20,6 +21,10 @@ struct Cli {
     #[structopt(short, long)]
     /// Number of sections in Grid2d algorithm
     sect: i16,
+
+    #[structopt(default_value="10", short, long)]
+    /// Number of hashes
+    depth: usize,
 
     #[structopt(short, long, parse(from_os_str))] //, default_value = "data/st1.obj")]
     /// The path to the file to read
@@ -41,7 +46,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         res_hashes = p3d_process(buffer.as_slice(), AlgoType::Grid2dV2, args.grid, args.sect, None);
     }
     else if args.algo == "grid2d_v3" {
-        res_hashes = p3d_process(buffer.as_slice(), AlgoType::Grid2dV3, args.grid, args.sect, None);
+        res_hashes = p3d_process_n(buffer.as_slice(), AlgoType::Grid2dV3, args.depth, args.grid, args.sect, None);
+    }
+    else if args.algo == "grid2d_v3a" {
+        res_hashes = p3d_process_n(buffer.as_slice(), AlgoType::Grid2dV3a, args.depth, args.grid, args.sect, None);
+    }
+    else {
+        println!("Unknown algorithm: {}", args.algo);
     }
 
     let hashes = res_hashes.unwrap();
