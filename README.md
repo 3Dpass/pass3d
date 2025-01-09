@@ -115,4 +115,4 @@ Overall recommendations: It's recommended that we set up the number of cross-sec
 
 This project is licensed under the MIT License
 
-Copyright (C) 2024 3DPass https://3dpass.org/
+Copyright (C) 2025 3DPass https://3dpass.org/
